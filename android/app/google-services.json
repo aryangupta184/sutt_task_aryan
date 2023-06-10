@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "774731589854",
+    "project_id": "sutt-task-aryan",
+    "storage_bucket": "sutt-task-aryan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774731589854:android:d76df9488094835a0fba4f",
+        "android_client_info": {
+          "package_name": "com.aryan.gupta.sutt_task_aryan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774731589854-jiesmej9d6tjee182rvg7o2ns936htdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aryan.gupta.sutt_task_aryan",
+            "certificate_hash": "4d6f89641efc4ea574bf062ddba6c50bf595df52"
+          }
+        },
+        {
+          "client_id": "774731589854-urkgghap3eod8i3eivev2bndbp413jbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpaX24LjUioCOWe9b8GTyMYYmHyEmH-Ro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774731589854-i175r676rt4c5fodptag4iqmlsnniq4g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
