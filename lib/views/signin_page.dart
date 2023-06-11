@@ -6,6 +6,9 @@ import 'package:sutt_task_aryan/router/route_utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SignInPage extends StatelessWidget {
+  static const snackBar = SnackBar(
+    content: Text('User Signed In Successfully'),
+  );
   static String? sendusername='Google User';
   bool email(email) {
     sendusername = Hive.box('mybox').get(email.toString());
@@ -13,13 +16,26 @@ class SignInPage extends StatelessWidget {
     return true;
   }
 
+
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[300],
-        body: SafeArea(
+
+        body:Container(
+        decoration: BoxDecoration(
+        gradient: LinearGradient(
+        colors: [
+        Colors.grey.shade300,
+        Colors.grey.shade100,
+        Colors.blue
+        ],
+        begin: Alignment.bottomCenter,
+        end: Alignment.topCenter
+    )
+    ),
+        child: SafeArea(
           child: Center(
               child: Column(children: [
             const SizedBox(height: 50),
@@ -35,7 +51,7 @@ class SignInPage extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: reusableTextField("Enter Email", Icons.person_outline,
@@ -50,7 +66,7 @@ class SignInPage extends StatelessWidget {
                   true, _passwordTextController),
             ),
             const SizedBox(
-              height: 15,
+              height: 50,
             ),
             firebaseUIButton(context, "Log In", () {
               FirebaseAuth.instance
@@ -59,35 +75,43 @@ class SignInPage extends StatelessWidget {
                       password: _passwordTextController.text)
                   .then((value) async {
                 await email(_emailTextController.text.toString());
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                 GoRouter.of(context).push(APP_PAGE.login.toPath);
               }).onError((error, stackTrace) {
                 print("Error ${error.toString()}");
               });
             }),
-            const SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Not a member?',
-                  style: TextStyle(color: Colors.grey[700]),
-                ),
-                const SizedBox(width: 4),
-                GestureDetector(
-                  onTap: () {
-                    GoRouter.of(context).push(APP_PAGE.signup.toPath);
-                  },
-                  child: const Text(
-                    'Register now',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
+
+                const SizedBox(height:35),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Or Go Back',
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 0.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
-            const SizedBox(height: 50),
+                ),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -102,7 +126,7 @@ class SignInPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(16),
-                      color: Colors.grey[200],
+                      color: Colors.lightBlueAccent.withOpacity(0.4),
                     ),
                     child: const Icon(
                       Icons.arrow_back,
@@ -113,7 +137,7 @@ class SignInPage extends StatelessWidget {
               ],
             ),
           ])),
-        )
+        ))
 
 
         );

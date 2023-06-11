@@ -4,12 +4,14 @@ import 'package:http/http.dart' as http;
 
 class LanguageApi{
 
+
+
   static Future<List> getLanguage() async{
 
     var uri  = Uri.https('google-translate1.p.rapidapi.com','/language/translate/v2/languages',);
 
     final response = await http.get(uri, headers: {
-      "X-RapidAPI-Key": "9a81521204mshdcda43b1405500bp119aa6jsna2f657326ece",
+      "X-RapidAPI-Key": "bb72b850f0msh562c04851d0f1a1p1a0ebcjsn813c727955e4",
       "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
     });
 
@@ -31,4 +33,6 @@ class LanguageApi{
 // 'X-RapidAPI-Key': '4ae30d5cbcmsh34329362e798210p1a068bjsnfa1b96320b4f',
 // 'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
 // });
+
+
 

@@ -4,6 +4,7 @@ import 'package:sutt_task_aryan/views/home_page.dart';
 import 'package:sutt_task_aryan/views/login_page.dart';
 import 'package:sutt_task_aryan/views/signin_page.dart';
 import 'package:sutt_task_aryan/views/signup_page.dart';
+import 'package:sutt_task_aryan/views/phone_page.dart';
 
 
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,11 @@ class AppRouter {
         path: APP_PAGE.home.toPath,
         name: APP_PAGE.home.toName,
         builder: (context, state) => LogInPage(),
+      ),
+      GoRoute(
+        path: APP_PAGE.phone.toPath,
+        name: APP_PAGE.phone.toName,
+        builder: (context, state) => PhonePage(),
       ),
       GoRoute(
         path: APP_PAGE.signin.toPath,

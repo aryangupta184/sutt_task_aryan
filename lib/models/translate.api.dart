@@ -12,7 +12,7 @@ class TranslationApi {
   static Future<List> translate(String message, String toLanguageCode) async {
     final dio = Dio();
     Response response;
-    dio.options.headers["X-RapidAPI-Key"]="9a81521204mshdcda43b1405500bp119aa6jsna2f657326ece";
+    dio.options.headers["X-RapidAPI-Key"]="bb72b850f0msh562c04851d0f1a1p1a0ebcjsn813c727955e4";
     dio.options.headers["X-RapidAPI-Host"]="google-translate1.p.rapidapi.com";
     dio.options.headers["content-type"]="application/x-www-form-urlencoded";
     dio.options.headers['Accept-Encoding']='application/gzip';

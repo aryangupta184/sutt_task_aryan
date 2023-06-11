@@ -9,7 +9,8 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     autocorrect: !isPasswordType,
     style: TextStyle(color: Colors.grey[700]),
     decoration: InputDecoration(
-      enabledBorder: const OutlineInputBorder(
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide(color: Colors.white),
       ),
       focusedBorder: OutlineInputBorder(

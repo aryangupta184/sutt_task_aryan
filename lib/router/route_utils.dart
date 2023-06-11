@@ -3,6 +3,7 @@ enum APP_PAGE {
   signup,
   login,
   home,
+  phone,
 }
 
 extension AppPageExtension on APP_PAGE {
@@ -16,6 +17,8 @@ extension AppPageExtension on APP_PAGE {
         return "/signin";
       case APP_PAGE.signup:
         return "/signup";
+      case APP_PAGE.phone:
+        return "/phone";
 
       default:
         return "/";
@@ -32,6 +35,8 @@ extension AppPageExtension on APP_PAGE {
         return "SIGNIN";
       case APP_PAGE.signup:
         return "SIGNUP";
+      case APP_PAGE.phone:
+        return "PHONE";
 
       default:
         return "HOME";
