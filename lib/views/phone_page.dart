@@ -20,7 +20,7 @@ class _PhonePage extends State<PhonePage> {
     content: Text('User Signed In Successfully'),
   );
 
-  bool otpVisibility = false;
+
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
   String verificationID = "";
@@ -64,13 +64,13 @@ class _PhonePage extends State<PhonePage> {
                     const SizedBox(height: 30),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: reusableTextField("Enter Phone Number with +91", Icons.person_outline,
+                      child: reusableTextField("Enter Phone Number ", Icons.phone,
                           false, phoneController),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Visibility(child:
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: Padding(
@@ -89,7 +89,7 @@ class _PhonePage extends State<PhonePage> {
                               fillColor: Colors.white54,
                               filled: true,
                               prefixIcon: Icon(
-                                Icons.text_snippet,
+                                Icons.numbers,
                                 color: Colors.blue,
                               ),
                               labelText: "Enter OTP",
@@ -98,19 +98,14 @@ class _PhonePage extends State<PhonePage> {
                             ),
                           )),
                     ),
-                      visible: otpVisibility,
-                    ),
+
 
                     const SizedBox(
                       height: 50,
                     ),
                     GestureDetector(
                       onTap: (){
-                        if(otpVisibility){
-                          verifyOTP();
-                        }else {
                           loginWithPhone();
-                        }
                       },
                       child: Container(
                         padding: const EdgeInsets.all(25),
@@ -121,7 +116,33 @@ class _PhonePage extends State<PhonePage> {
                         ),
                         child: const Center(
                           child: Text(
-                            "Send/Verify OTP",
+                            "Send OTP",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        verifyOTP();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(25),
+                        margin: const EdgeInsets.symmetric(horizontal: 25),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Verify OTP",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -197,14 +218,12 @@ class _PhonePage extends State<PhonePage> {
       phoneNumber: "+91" + phoneController.text,
       verificationCompleted: (PhoneAuthCredential credential) async {
         await auth.signInWithCredential(credential).then((value) {
-          print("You are logged in successfully");
         });
       },
       verificationFailed: (FirebaseAuthException e) {
         print(e.message);
       },
       codeSent: (String verificationId, int? resendToken) {
-        otpVisibility = true;
         verificationID = verificationId;
         setState(() {});
       },

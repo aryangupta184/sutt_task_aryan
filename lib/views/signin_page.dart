@@ -9,7 +9,7 @@ class SignInPage extends StatelessWidget {
   static const snackBar = SnackBar(
     content: Text('User Signed In Successfully'),
   );
-  static String? sendusername='Google User';
+  static String? sendusername='User';
   bool email(email) {
     sendusername = Hive.box('mybox').get(email.toString());
     print(sendusername);

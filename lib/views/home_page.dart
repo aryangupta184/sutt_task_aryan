@@ -19,6 +19,75 @@ class _HomePage extends State<HomePage> {
 
   double height=200;
 
+  void fetchTransData(BuildContext context, [bool mounted = true]) async {
+    showDialog(
+
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+
+
+    await getTranslated(_TextController.text, selectedValue);
+
+
+    if (!mounted) return;
+    Navigator.of(context).pop();
+  }
+
+  void fetchLangData(BuildContext context, [bool mounted = true]) async {
+    showDialog(
+
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+
+
+    await getLanguages();
+
+    if (!mounted) return;
+    Navigator.of(context).pop();
+  }
+
   String? username = SignInPage.sendusername.toString();
 
   Future<void> getLanguages() async {
@@ -28,6 +97,8 @@ class _HomePage extends State<HomePage> {
 
   Future<void> getTranslated(message, toLanguageCode) async {
     _convertandlang = await TranslationApi.translate(message, toLanguageCode);
+    translatedtext = _convertandlang?[0];
+    detectedlang = _convertandlang?[1];
     setState(() {});
   }
 
@@ -78,6 +149,7 @@ class _HomePage extends State<HomePage> {
                   width: 100,
                   child: TextButton(
                     onPressed: () {
+                      SignInPage.sendusername='User';
                       FirebaseServices().signOut();
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       GoRouter.of(context).push(APP_PAGE.home.toPath);
@@ -112,10 +184,11 @@ class _HomePage extends State<HomePage> {
                           size: 100,
                         ),
                         const SizedBox(height: 30),
+
                         Container(
                           child: ElevatedButton(
                               onPressed: () {
-                                getLanguages();
+                                fetchLangData(context);
                                 langactivated = "Drop Down List Activated";
                               },
                               child: Text(
@@ -133,6 +206,7 @@ class _HomePage extends State<HomePage> {
                                   side: BorderSide(color: Colors.blue),
                                   shape: StadiumBorder())),
                         ),
+
                         const SizedBox(height: 10),
                         Text(
                           langactivated,
@@ -198,14 +272,13 @@ class _HomePage extends State<HomePage> {
                         const SizedBox(height: 35),
                         Container(
                           child: ElevatedButton(
-                              onPressed: () async {
-                                await getTranslated(_TextController.text, selectedValue);
+                              onPressed: () {
+                                fetchTransData(context);
                                 translateactivated = 'Translation Successful';
 
                                 print(_convertandlang?[0]);
                                 print(_convertandlang?[1]);
-                                translatedtext = _convertandlang?[0];
-                                detectedlang = _convertandlang?[1];
+
                               },
                               child: Text(
                                 "CALL TRANSLATE API",
@@ -268,375 +341,15 @@ class _HomePage extends State<HomePage> {
 
                   )
 
-              // const SizedBox(height: 30),
-              // const Icon(
-              //   Icons.g_translate,
-              //   color: Colors.blue,
-              //   size: 100,
-              // ),
-              // const SizedBox(height: 30),
-              // Container(
-              //   child: ElevatedButton(
-              //       onPressed: () {
-              //         getLanguages();
-              //         langactivated = "Drop Down List Activated";
-              //       },
-              //       child: Text(
-              //         "CALL LANGUAGE CODE API",
-              //         style: TextStyle(
-              //             color: Colors.white70,
-              //             fontWeight: FontWeight.bold,
-              //             fontSize: 16),
-              //       ),
-              //       style: ElevatedButton.styleFrom(
-              //           padding: EdgeInsets.all(10),
-              //           fixedSize: Size(250, 36),
-              //           elevation: 22,
-              //           shadowColor: Colors.lightBlueAccent,
-              //           side: BorderSide(color: Colors.blue),
-              //           shape: StadiumBorder())),
-              // ),
-              // const SizedBox(height: 10),
-              // Text(
-              //   langactivated,
-              //   style: TextStyle(
-              //     color: Colors.green,
-              //     fontSize: 16,
-              //   ),
-              // ),
-              // const SizedBox(height: 10),
-              // DropdownButton(
-              //   hint: new Text("Select Language Code"),
-              //   value: selectedValue,
-              //   onChanged: (v) {
-              //     setState(() {
-              //       selectedValue = v as String;
-              //     });
-              //   },
-              //   items: _languages?.map((valueItem) {
-              //     return DropdownMenuItem(
-              //         value: valueItem, child: Text(valueItem as String));
-              //   }).toList(),
-              //   icon: Icon(Icons.arrow_drop_down),
-              //   iconSize: 42,
-              //   underline: SizedBox(),
-              // ),
-              // const SizedBox(height: 20),
-              // Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              //     child: TextField(
-              //       controller: _TextController,
-              //       style: TextStyle(color: Colors.black),
-              //       decoration: InputDecoration(
-              //         enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(16),
-              //           borderSide: BorderSide(color: Colors.blue),
-              //         ),
-              //         focusedBorder: OutlineInputBorder(
-              //           borderSide: BorderSide(color: Colors.blue.shade400),
-              //         ),
-              //         fillColor: Colors.white54,
-              //         filled: true,
-              //         prefixIcon: Icon(
-              //           Icons.text_snippet,
-              //           color: Colors.blue,
-              //         ),
-              //         labelText: "Enter text to be translated",
-              //         labelStyle: TextStyle(color: Colors.black),
-              //         floatingLabelBehavior: FloatingLabelBehavior.never,
-              //       ),
-              //     )),
-              // const SizedBox(height: 35),
-              // Container(
-              //   child: ElevatedButton(
-              //       onPressed: () async {
-              //         await getTranslated(_TextController.text, selectedValue);
-              //         translateactivated = 'Translation Successful';
-              //
-              //         print(_convertandlang?[0]);
-              //         print(_convertandlang?[1]);
-              //         translatedtext = _convertandlang?[0];
-              //         detectedlang = _convertandlang?[1];
-              //       },
-              //       child: Text(
-              //         "CALL TRANSLATE API",
-              //         style: TextStyle(
-              //             color: Colors.white70,
-              //             fontWeight: FontWeight.bold,
-              //             fontSize: 16),
-              //       ),
-              //       style: ElevatedButton.styleFrom(
-              //           padding: EdgeInsets.all(10),
-              //           fixedSize: Size(250, 36),
-              //           elevation: 22,
-              //           shadowColor: Colors.lightBlueAccent,
-              //           side: BorderSide(color: Colors.blue),
-              //           shape: StadiumBorder())),
-              // ),
-              // const SizedBox(height: 10),
-              // Text(
-              //   translateactivated,
-              //   style: TextStyle(
-              //     color: Colors.green,
-              //     fontSize: 16,
-              //   ),
-              // ),
-              // const SizedBox(height: 15),
-              // Text(
-              //   'Detected Language: ' + detectedlang,
-              //   style: TextStyle(
-              //     color: Colors.grey[700],
-              //     fontSize: 16,
-              //   ),
-              // ),
-              // const SizedBox(height: 35),
-              // Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              //     child: TextField(
-              //       style: TextStyle(color: Colors.black45),
-              //       decoration: InputDecoration(
-              //         enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(16),
-              //           borderSide: BorderSide(color: Colors.blue),
-              //         ),
-              //         focusedBorder: OutlineInputBorder(
-              //           borderSide: BorderSide(color: Colors.blue.shade400),
-              //         ),
-              //         fillColor: Colors.white54,
-              //         filled: true,
-              //         prefixIcon: Icon(
-              //           Icons.text_snippet,
-              //           color: Colors.blue,
-              //         ),
-              //         labelText: translatedtext,
-              //         labelStyle: TextStyle(color: Colors.blueGrey),
-              //         floatingLabelBehavior: FloatingLabelBehavior.never,
-              //       ),
-              //     )),
             ])),
           ))
         ],
       ),
 
-      // backgroundColor: Colors.blueGrey[100],
-      // appBar: AppBar(
-      //   leading: Icon(Icons.account_circle_rounded,
-      //   color: Colors.blueGrey[100],),
-      //   backgroundColor: Colors.blue[800],
-      //   elevation: 22,
-      //   shadowColor: Colors.blueAccent,
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
-      //
-      //   ),
-      //   title: Text(
-      //     username!,
-      //     style: TextStyle(
-      //       color: Colors.blueGrey[100],
-      //       fontWeight: FontWeight.bold,
-      //       fontSize: 16,
-      //     ),
-      //   ),
-      //   centerTitle: false,
-      //   actions: [
-      //     Container(
-      //         width: 100,
-      //         child: TextButton(
-      //           onPressed: () {
-      //             FirebaseServices().signOut();
-      //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      //             GoRouter.of(context).push(APP_PAGE.home.toPath);
-      //           },
-      //           child: Text(
-      //             "Log out",
-      //             style: TextStyle(
-      //               color: Colors.blueGrey.shade100,
-      //               fontWeight: FontWeight.bold,
-      //               fontSize: 16,
-      //             ),
-      //           ),
-      //         )),
-      //   ],
-      // ),
-      // body: SafeArea(
-      //
-      //   child: Center(
-      //       child: Column(children: [
-      //     const SizedBox(height: 30),
-      //     const Icon(
-      //       Icons.g_translate,
-      //       color: Colors.blue,
-      //       size: 100,
-      //     ),
-      //     const SizedBox(height: 30),
-      //
-      //         Container(
-      //
-      //           margin: const EdgeInsets.symmetric(horizontal: 25),
-      //           decoration: BoxDecoration(
-      //             color: Colors.blue[700],
-      //             borderRadius: BorderRadius.circular(8),
-      //           ),
-      //           child: ElevatedButton(
-      //             onPressed: () {
-      //               getLanguages();
-      //               langactivated="Drop Down List Activated";
-      //             },
-      //             child: Text(
-      //               "CALL LANGUAGE CODE API",
-      //               style: TextStyle(
-      //                   color: Colors.blueGrey.shade100, fontWeight: FontWeight.bold, fontSize: 16),
-      //             ),
-      //             style: ButtonStyle(
-      //                 backgroundColor: MaterialStateProperty.resolveWith((states) {
-      //                   if (states.contains(MaterialState.pressed)) {
-      //                     return Colors.lightBlueAccent;
-      //                   }
-      //                   return Colors.blue[700];
-      //                 }),
-      //                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      //                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))),
-      //           ),
-      //         ),
-      //         const SizedBox(height:10),
-      //
-      //         Text(
-      //           langactivated,
-      //           style: TextStyle(
-      //             color: Colors.green,
-      //             fontSize: 16,
-      //           ),
-      //         ),
-      //
-      //         const SizedBox(height: 10),
-      //         DropdownButton(
-      //           hint: new Text("Select Language Code"),
-      //           value: selectedValue,
-      //           onChanged: (v) {
-      //             setState(() {
-      //               selectedValue = v as String;
-      //             });
-      //           },
-      //           items: _languages?.map((valueItem) {
-      //             return DropdownMenuItem(
-      //                 value: valueItem, child: Text(valueItem as String));
-      //           }).toList(),
-      //           icon: Icon(Icons.arrow_drop_down),
-      //           iconSize: 42,
-      //           underline: SizedBox(),
-      //         ),
-      //
-      //     const SizedBox(height: 30),
-      //     Padding(
-      //         padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      //         child: TextField(
-      //           controller: _TextController,
-      //           style: TextStyle(color: Colors.white),
-      //           decoration: InputDecoration(
-      //             enabledBorder: OutlineInputBorder(
-      //               borderRadius: BorderRadius.circular(8),
-      //               borderSide: BorderSide(color: Colors.blue.shade900),
-      //             ),
-      //             focusedBorder: OutlineInputBorder(
-      //               borderSide: BorderSide(color: Colors.blue.shade300),
-      //             ),
-      //             fillColor: Colors.blue[100],
-      //             filled: true,
-      //             prefixIcon: Icon(
-      //               Icons.text_snippet,
-      //               color: Colors.lightBlueAccent,
-      //             ),
-      //             labelText: "Enter text to be translated",
-      //             labelStyle: TextStyle(color: Colors.blue[800]),
-      //             floatingLabelBehavior: FloatingLabelBehavior.never,
-      //           ),
-      //         )),
-      //
-      //     const SizedBox(height: 35),
-      //
-      //       Container(
-      //
-      //         // margin: const EdgeInsets.symmetric(horizontal: 25),
-      //         decoration: BoxDecoration(
-      //           color: Colors.blue[700],
-      //           borderRadius: BorderRadius.circular(8),
-      //         ),
-      //         child: ElevatedButton(
-      //           onPressed: () async {
-      //             await getTranslated(_TextController.text, selectedValue);
-      //             translateactivated='Translation Successfull';
-      //
-      //             print(_convertandlang?[0]);
-      //             print(_convertandlang?[1]);
-      //             translatedtext=_convertandlang?[0];
-      //             detectedlang=_convertandlang?[1];
-      //           },
-      //           child: Text(
-      //             "CALL TRANSLATE API",
-      //             style: TextStyle(
-      //                 color: Colors.blueGrey[100], fontWeight: FontWeight.bold, fontSize: 16),
-      //           ),
-      //           style: ButtonStyle(
-      //               backgroundColor: MaterialStateProperty.resolveWith((states) {
-      //                 if (states.contains(MaterialState.pressed)) {
-      //                   return Colors.lightBlueAccent;
-      //                 }
-      //                 return Colors.blue[700];
-      //               }),
-      //               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      //                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))),
-      //         ),
-      //       ),
-      //         const SizedBox(height:10),
-      //
-      //         Text(
-      //           translateactivated,
-      //           style: TextStyle(
-      //             color: Colors.green,
-      //             fontSize: 16,
-      //           ),
-      //         ),
-      //         const SizedBox(height:15),
-      //
-      //         Text(
-      //           'Detected Language: '+detectedlang,
-      //           style: TextStyle(
-      //             color: Colors.grey[700],
-      //             fontSize: 16,
-      //           ),
-      //         ),
-      //
-      //         const SizedBox(height: 35),
-      //
-      //         Padding(
-      //             padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      //             child: TextField(
-      //               controller: _TextController,
-      //               style: TextStyle(color: Colors.white),
-      //               decoration: InputDecoration(
-      //                 enabledBorder: OutlineInputBorder(
-      //                   borderRadius: BorderRadius.circular(8),
-      //                   borderSide: BorderSide(color: Colors.blue.shade900),
-      //                 ),
-      //                 focusedBorder: OutlineInputBorder(
-      //                   borderSide: BorderSide(color: Colors.blue.shade300),
-      //                 ),
-      //                 fillColor: Colors.blue[100],
-      //                 filled: true,
-      //                 prefixIcon: Icon(
-      //                   Icons.text_snippet,
-      //                   color: Colors.lightBlueAccent,
-      //                 ),
-      //                 labelText: translatedtext,
-      //                 labelStyle: TextStyle(color: Colors.blue[800]),
-      //                 floatingLabelBehavior: FloatingLabelBehavior.never,
-      //               ),
-      //             )),
-      //
-      //
-      //
-      //   ])),
-      // )
+
     );
+
+
+
   }
 }
