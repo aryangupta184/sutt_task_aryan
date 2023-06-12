@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class SignInPage extends StatelessWidget {
   static const snackBar = SnackBar(
-    content: Text('User Signed In Successfully'),
+    content: Text('User Signed In with Email Successfully'),
   );
   static String? sendusername='User';
   bool email(email) {

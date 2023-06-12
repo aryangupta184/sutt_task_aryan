@@ -1,14 +1,52 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:sutt_task_aryan/router/route_utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LogInPage extends StatelessWidget {
   static const snackBar = SnackBar(
-    content: Text('User Signed In with Phone Number Successfully'),
+    content: Text('User Signed In with Google Successfully'),
   );
+
+  Future<int> GoogleLogin(BuildContext context, [bool mounted = true]) async {
+    showDialog(
+
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+
+
+
+    await FirebaseServices().signInWithGoogle();
+    Navigator.of(context).pop();
+
+    if (!mounted) return 1;
+
+    else return 2;
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,7 +188,7 @@ class LogInPage extends StatelessWidget {
 
                           GestureDetector(
                             onTap: () async {
-                              await FirebaseServices().signInWithGoogle();
+                              await GoogleLogin(context);
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               GoRouter.of(context).push(APP_PAGE.login.toPath);
                             },

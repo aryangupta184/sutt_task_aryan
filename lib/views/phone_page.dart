@@ -3,7 +3,7 @@ import 'package:sutt_task_aryan/reusable_widgets/reusable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sutt_task_aryan/router/route_utils.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 
 class PhonePage extends StatefulWidget {
   const PhonePage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class PhonePage extends StatefulWidget {
 
 class _PhonePage extends State<PhonePage> {
   static const snackBar = SnackBar(
-    content: Text('User Signed In Successfully'),
+    content: Text('User Signed In with Phone Number Successfully'),
   );
 
 
