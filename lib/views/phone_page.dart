@@ -70,34 +70,39 @@ class _PhonePage extends State<PhonePage> {
                     const SizedBox(
                       height: 10,
                     ),
-
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                          child: TextField(
-                            controller: otpController,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(color: Colors.blue),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue.shade400),
-                              ),
-                              fillColor: Colors.white54,
-                              filled: true,
-                              prefixIcon: Icon(
-                                Icons.numbers,
-                                color: Colors.blue,
-                              ),
-                              labelText: "Enter OTP",
-                              labelStyle: TextStyle(color: Colors.black),
-                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                            ),
-                          )),
+                      child: reusableTextField("Enter OTP ", Icons.numbers,
+                          false, otpController),
                     ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    //   child: Padding(
+                    //       padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    //       child: TextField(
+                    //         controller: otpController,
+                    //         style: TextStyle(color: Colors.black),
+                    //         decoration: InputDecoration(
+                    //           enabledBorder: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(16),
+                    //             borderSide: BorderSide(color: Colors.blue),
+                    //           ),
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: Colors.blue.shade400),
+                    //           ),
+                    //           fillColor: Colors.white54,
+                    //           filled: true,
+                    //           prefixIcon: Icon(
+                    //             Icons.numbers,
+                    //             color: Colors.blue,
+                    //           ),
+                    //           labelText: "Enter OTP",
+                    //           labelStyle: TextStyle(color: Colors.black),
+                    //           floatingLabelBehavior: FloatingLabelBehavior.never,
+                    //         ),
+                    //       )),
+                    // ),
 
 
                     const SizedBox(
@@ -127,7 +132,7 @@ class _PhonePage extends State<PhonePage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     GestureDetector(
                       onTap: (){

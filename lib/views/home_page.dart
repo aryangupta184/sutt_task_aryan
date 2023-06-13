@@ -39,7 +39,7 @@ class _HomePage extends State<HomePage> {
                     height: 15,
                   ),
                   // Some text
-                  Text('Loading...')
+                  Text('Translating....')
                 ],
               ),
             ),
@@ -48,6 +48,7 @@ class _HomePage extends State<HomePage> {
 
 
     await getTranslated(_TextController.text, selectedValue);
+    translateactivated = 'Translation Successful';
 
 
     if (!mounted) return;
@@ -74,7 +75,7 @@ class _HomePage extends State<HomePage> {
                     height: 15,
                   ),
                   // Some text
-                  Text('Loading...')
+                  Text('Getting available languages....')
                 ],
               ),
             ),
@@ -83,6 +84,7 @@ class _HomePage extends State<HomePage> {
 
 
     await getLanguages();
+    langactivated = "Drop Down List Activated";
 
     if (!mounted) return;
     Navigator.of(context).pop();
@@ -171,7 +173,7 @@ class _HomePage extends State<HomePage> {
                 child: Column(children: [
 
                   Container(
-                    height: height*0.39,
+                    height: height*0.35,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(bottomRight: Radius.circular(50)),
@@ -181,7 +183,7 @@ class _HomePage extends State<HomePage> {
                         const Icon(
                           Icons.g_translate,
                           color: Colors.blue,
-                          size: 100,
+                          size: 95,
                         ),
                         const SizedBox(height: 30),
 
@@ -189,7 +191,7 @@ class _HomePage extends State<HomePage> {
                           child: ElevatedButton(
                               onPressed: () {
                                 fetchLangData(context);
-                                langactivated = "Drop Down List Activated";
+
                               },
                               child: Text(
                                 "CALL LANGUAGE CODE API",
@@ -229,7 +231,7 @@ class _HomePage extends State<HomePage> {
                                 value: valueItem, child: Text(valueItem as String));
                           }).toList(),
                           icon: Icon(Icons.arrow_drop_down),
-                          iconSize: 42,
+                          iconSize: 48,
                           underline: SizedBox(),
                         ),
 
@@ -244,7 +246,7 @@ class _HomePage extends State<HomePage> {
                     ),
                     child: Column(
                       children: [
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 30),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: TextField(
@@ -274,7 +276,6 @@ class _HomePage extends State<HomePage> {
                           child: ElevatedButton(
                               onPressed: () {
                                 fetchTransData(context);
-                                translateactivated = 'Translation Successful';
 
                                 print(_convertandlang?[0]);
                                 print(_convertandlang?[1]);
@@ -303,7 +304,7 @@ class _HomePage extends State<HomePage> {
                             fontSize: 16,
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 10),
                         Text(
                           'Detected Language: ' + detectedlang,
                           style: TextStyle(
@@ -311,7 +312,7 @@ class _HomePage extends State<HomePage> {
                             fontSize: 16,
                           ),
                         ),
-                        const SizedBox(height: 35),
+                        const SizedBox(height: 30),
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: TextField(

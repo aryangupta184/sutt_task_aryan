@@ -16,20 +16,17 @@ class LogInPage extends StatelessWidget {
         context: context,
         builder: (_) {
           return Dialog(
-            // The background color
             backgroundColor: Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: const [
-                  // The loading indicator
                   CircularProgressIndicator(),
                   SizedBox(
                     height: 15,
                   ),
-                  // Some text
-                  Text('Loading...')
+                  Text('Searching for Google Accounts....')
                 ],
               ),
             ),
@@ -70,7 +67,6 @@ class LogInPage extends StatelessWidget {
                 child: Column(
                     children: [
 
-                      //logo
 
                       const SizedBox(height:50),
 
@@ -93,7 +89,7 @@ class LogInPage extends StatelessWidget {
 
                       //sign in
 
-                      const SizedBox(height:25),
+                      const SizedBox(height:50),
 
 
                       GestureDetector(
@@ -119,7 +115,7 @@ class LogInPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height:25),
+                      const SizedBox(height:35),
 
 
                       GestureDetector(
@@ -254,8 +250,7 @@ class FirebaseServices {
 
   signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;

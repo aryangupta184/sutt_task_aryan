@@ -43,21 +43,5 @@ extension AppPageExtension on APP_PAGE {
     }
   }
 
-  String get toTitle {
-    switch (this) {
-      case APP_PAGE.home:
-        return "My App";
-      case APP_PAGE.login:
-        return "My App Log In";
-      case APP_PAGE.signin:
-        return "My App Sign In";
-      case APP_PAGE.signup:
-        return "My App Sign Up";
 
-
-
-      default:
-        return "My App";
-    }
-  }
 }

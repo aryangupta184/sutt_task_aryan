@@ -38,12 +38,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: "Router App",
+      title: "SUTT Aryan Gupta",
       debugShowCheckedModeBanner: false,
       routeInformationParser: AppRouter().router.routeInformationParser,
       routerDelegate: AppRouter().router.routerDelegate,
